@@ -480,7 +480,6 @@ inline static int getPlayerOption(IJKFFOptionCategory category)
     _liveOpenDelegate       = nil;
     _nativeInvokeDelegate   = nil;
 
-    __unused id weakPlayer = (__bridge_transfer IJKFFMoviePlayerController*)ijkmp_set_weak_thiz(_mediaPlayer, NULL);
     __unused id weakHolder = (__bridge_transfer IJKWeakHolder*)ijkmp_set_inject_opaque(_mediaPlayer, NULL);
     __unused id weakijkHolder = (__bridge_transfer IJKWeakHolder*)ijkmp_set_ijkio_inject_opaque(_mediaPlayer, NULL);
     ijkmp_dec_ref_p(&_mediaPlayer);
@@ -594,6 +593,14 @@ inline static int getPlayerOption(IJKFFOptionCategory category)
 - (CGSize)naturalSize
 {
     return _naturalSize;
+}
+
+- (CGFloat)videoCachedBitrate {
+    int64_t vbytes = ijkmp_get_property_int64(_mediaPlayer, FFP_PROP_INT64_VIDEO_CACHED_BYTES, 0);
+    int64_t vduration = ijkmp_get_property_int64(_mediaPlayer, FFP_PROP_INT64_VIDEO_CACHED_DURATION, 0);
+    CGFloat vfbytes = (CGFloat)vbytes * 8 / 1024;
+    CGFloat vfduration = (CGFloat)vduration / 1000;
+    return vfbytes / vfduration;
 }
 
 - (void)changeNaturalSize

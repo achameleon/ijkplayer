@@ -88,6 +88,8 @@ typedef enum IJKLogLevel {
 - (void)setPauseInBackground:(BOOL)pause;
 - (BOOL)isVideoToolboxOpen;
 
+- (CGFloat)videoCachedBitrate;
+
 + (void)setLogReport:(BOOL)preferLogReport;
 + (void)setLogLevel:(IJKLogLevel)logLevel;
 + (BOOL)checkIfFFmpegVersionMatch:(BOOL)showAlert;
