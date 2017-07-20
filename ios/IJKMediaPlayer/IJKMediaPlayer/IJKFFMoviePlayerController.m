@@ -596,6 +596,8 @@ inline static int getPlayerOption(IJKFFOptionCategory category)
 }
 
 - (CGFloat)videoCachedBitrate {
+    if (!_mediaPlayer)
+        return 0.0f;
     int64_t vbytes = ijkmp_get_property_int64(_mediaPlayer, FFP_PROP_INT64_VIDEO_CACHED_BYTES, 0);
     int64_t vduration = ijkmp_get_property_int64(_mediaPlayer, FFP_PROP_INT64_VIDEO_CACHED_DURATION, 0);
     CGFloat vfbytes = (CGFloat)vbytes * 8 / 1024;
